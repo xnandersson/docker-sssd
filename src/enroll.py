@@ -7,7 +7,7 @@ from subprocess import PIPE, STDOUT
 DEFAULT_REALM = os.getenv('DEFAULT_REALM', 'ACME.ORG')
 ADMIN_SERVER = os.getenv('ADMIN_SERVER', 'dc.acme.org')
 KERBEROS_SERVERS = os.getenv('KERBEROS_SERVERS', ADMIN_SERVER)
-DC_ENV_SAMBA_ADMINPASS = os.getenv('DC_ENV_SAMBA_ADMINPASS', 'Abc123')
+DC_ENV_SAMBA_ADMINPASS = os.getenv('DC_ENV_SAMBA_ADMINPASS', 'Abc123!')
 
 def install_kerberos(default_realm=None, admin_server=None, kerberos_servers=None):
     t = Template(open('/tmp/krb5-config.debconf.jinja2').read())
@@ -46,6 +46,8 @@ def configure_sssd_conf(domain=None):
     with open('/etc/sssd/sssd.conf', 'w') as f:
         f.write(t.render(
                 default_realm=domain))
+    proc = subprocess.Popen(['chmod', '0600', '/etc/sssd/sssd.conf'])
+    proc.wait()
 
 def service_start(service):
     proc = subprocess.Popen(['service', service, 'start'])
@@ -61,3 +63,4 @@ if __name__ == '__main__':
     configure_realmd(default_realm=DEFAULT_REALM)
     join(domain=DEFAULT_REALM)
     configure_sssd_conf(domain=DEFAULT_REALM)
+    service_start('sssd')
