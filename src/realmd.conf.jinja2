@@ -1,0 +1,17 @@
+[users]
+default-home = /home/%U
+default-shell = /bin/bash
+
+[active-directory]
+default-client = sssd
+os-name = Ubuntu
+os-version = 18.04
+
+[service]
+automatic-install = yes
+
+[{{ default_realm|lower }}]
+user-principal = yes 
+automatic-id-mapping = no 
+manage-system = no
+fully-qualified-names = no
