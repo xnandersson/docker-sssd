@@ -27,7 +27,7 @@ def install_kerberos(default_realm=None, admin_server=None, kerberos_servers=Non
 
 def fetch_kerberos_ticket(realm=None, password=None):
     proc = subprocess.Popen(['kinit', 'Administrator@{}'.format(realm)], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
-    output = proc.communicate(input=password)
+    output = proc.communicate(input=str.encode(password))
     proc.wait()
 
 def configure_realmd(default_realm=None):
