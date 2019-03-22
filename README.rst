@@ -44,4 +44,4 @@ Install
   $ source ~/venv3/docker-sssd/bin/activate
   $ pip install -U pip
   $ pip install -r requirements.txt
-  $ python src/docker-dc.py
+  $ python src/docker-sssd.py
