@@ -33,3 +33,15 @@ Prerequisites
   $ sudo apt-get install docker.io python3-venv
   $ sudo usermod -a -G docker nandersson
   $ docker pull ubuntu:latest
+
+
+Install
+-------
+
+.. code:: bash
+
+  $ python3 -m venv ~/venv3/docker-sssd
+  $ source ~/venv3/docker-sssd/bin/activate
+  $ pip install -U pip
+  $ pip install -r requirements.txt
+  $ python src/docker-sssd.py
