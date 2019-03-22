@@ -54,6 +54,11 @@ def service_start(service):
     rc = proc.wait()
     return True if rc == 0 else False
 
+def service_restart(service):
+    proc = subprocess.Popen(['service', service, 'restart'])
+    rc = proc.wait()
+    return True if rc == 0 else False
+
 if __name__ == '__main__':
     install_kerberos(
         default_realm=DEFAULT_REALM, admin_server=ADMIN_SERVER, kerberos_servers=KERBEROS_SERVERS) 
@@ -63,4 +68,4 @@ if __name__ == '__main__':
     configure_realmd(default_realm=DEFAULT_REALM)
     join(domain=DEFAULT_REALM)
     configure_sssd_conf(domain=DEFAULT_REALM)
-    service_start('sssd')
+    service_restart('sssd')
