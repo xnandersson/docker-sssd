@@ -59,6 +59,25 @@ def service_restart(service):
     rc = proc.wait()
     return True if rc == 0 else False
 
+def configure_mkhomedir():
+    with open('/usr/share/pam-configs/mkhomedir', 'w') as f:
+        f.write("""Name: mkhomedir
+Default: yes
+Priority: 0
+Session-Type: Additional
+Session:
+ required pam_mkhomedir.so skel=/etc/skel umask=0027
+""")
+    proc = subprocess.Popen(['debconf-set-selections'], stdin=PIPE)
+    output = proc.communicate(input=str.encode('libpam-runtime libpam-runtime/profiles multiselect mkhomedir'))
+    proc.wait()
+    proc = subprocess.Popen(['rm', '/etc/pam.d/common-session', '/etc/pam.d/common-session-noninteractive'])
+    proc.wait()
+    my_env = os.environ.copy()
+    my_env["DEBIAN_FRONTEND"] = "noninteractive"
+    proc = subprocess.Popen(['pam-auth-update', '--force'], env=my_env)
+    proc.wait()
+
 if __name__ == '__main__':
     install_kerberos(
         default_realm=DEFAULT_REALM, admin_server=ADMIN_SERVER, kerberos_servers=KERBEROS_SERVERS) 
@@ -67,5 +86,6 @@ if __name__ == '__main__':
     fetch_kerberos_ticket(realm=DEFAULT_REALM, password=DC_ENV_SAMBA_ADMINPASS)
     configure_realmd(default_realm=DEFAULT_REALM)
     join(domain=DEFAULT_REALM)
+    configure_mkhomedir()
     configure_sssd_conf(domain=DEFAULT_REALM)
     service_restart('sssd')
