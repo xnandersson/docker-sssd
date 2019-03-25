@@ -78,6 +78,10 @@ Session:
     proc = subprocess.Popen(['pam-auth-update', '--force'], env=my_env)
     proc.wait()
 
+def sshd():
+    proc = subprocess.Popen(['/usr/sbin/sshd', '-D'])
+    proc.wait()
+
 if __name__ == '__main__':
     install_kerberos(
         default_realm=DEFAULT_REALM, admin_server=ADMIN_SERVER, kerberos_servers=KERBEROS_SERVERS) 
@@ -89,3 +93,4 @@ if __name__ == '__main__':
     configure_mkhomedir()
     configure_sssd_conf(domain=DEFAULT_REALM)
     service_restart('sssd')
+    sshd()
