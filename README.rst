@@ -22,7 +22,7 @@ Start container and do the enroll procedure
       -e DEFAULT_REALM=OPENFORCE.ORG \
       -e ADMIN_SERVER=dc.openforce.org \
       -e KERBEROS_SERVERS=dc.openforce.org \
-      xnandersson/sssd /usr/local/bin/enroll
+      xnandersson/sssd /usr/local/bin/enroll.py
 
 
 Prerequisites
