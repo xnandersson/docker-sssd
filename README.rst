@@ -8,6 +8,8 @@ Abstract
 Creates a Docker Image, preloaded with sssd, kerberos,  and an enroll-script
 that joins the container on startup using the supplied variables.
 
+The enrollment procedure ends with SSHD starting up, making the container available on port 22 (redirected to port 2223 in the example below). If you want to debug as root - start the container with a /bin/bash instead of /usr/local/bin/enroll.py, edit enroll.py and comment out the sshd() in the last row.
+
 Start container and do the enroll procedure
 
 .. code:: bash
