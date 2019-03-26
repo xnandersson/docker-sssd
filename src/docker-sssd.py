@@ -14,10 +14,7 @@ def mkdir_build_dir():
 
 def copy_files_to_build_dir():
     shutil.copyfile('enroll.py', os.path.join(BUILD_DIR, 'enroll.py'))
-    shutil.copyfile('sssd.conf.jinja2', os.path.join(BUILD_DIR, 'sssd.conf.jinja2'))
-    shutil.copyfile('realmd.conf.jinja2', os.path.join(BUILD_DIR, 'realmd.conf.jinja2'))
-    shutil.copyfile('krb5.conf.jinja2', os.path.join(BUILD_DIR, 'krb5.conf.jinja2'))
-    shutil.copyfile('krb5-config.debconf.jinja2', os.path.join(BUILD_DIR, 'krb5-config.debconf.jinja2'))
+    shutil.copytree('templates', os.path.join(BUILD_DIR, 'templates'))
 
 def create_dockerfile():
     with open(os.path.join(BUILD_DIR, 'Dockerfile'), 'w') as f:
