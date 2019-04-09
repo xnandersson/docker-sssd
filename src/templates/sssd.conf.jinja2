@@ -1,16 +1,15 @@
 [sssd]
 domains = {{ default_realm|lower }}
 config_file_version = 2
-#services = nss, pam, ssh, sudo
-services = nss, pam, ssh 
+services = nss, pam, ssh, sudo
 reconnection_retries = 7
 debug_level = 5
 
 [ssh]
 debug_level = 5
 
-#[sudo]
-#debug_level = 5
+[sudo]
+debug_level = 5
 
 [pam]
 offline_credentials_expiration = 60
@@ -45,3 +44,4 @@ ldap_sudo_search_base = ou=SUDOers,dc=openforce,dc=org
 ldap_default_bind_dn = cn=admin,dc=openforce,dc=org
 ldap_default_authtok = Secret007!
 debug_level = 5
+
