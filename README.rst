@@ -42,6 +42,21 @@ Start container and do the enroll procedure
 
 .. code:: bash
 
+  $ sudo docker run \
+      --privileged \
+      --name dc \
+      --rm \
+      -d \
+      -e SAMBA_DOMAIN=openforce \
+      -e SAMBA_HOST_NAME=dc \
+      -e SAMBA_ADMINPASS=Abc123! \
+      -e SAMBA_KRBTGTPASS=Abc123! \
+      -e SAMBA_REALM=OPENFORCE.ORG \
+      -p 2222:22 -p 5353:53 -p 88:88 \
+      -p 135:135 -p 139:139 -p 389:389 \
+      -p 445:445 -p 464:464 -p 636:636 \
+      -p 1024:1024 -p 3268:3268 -p 3269:3269 \
+      xnandersson/samba-ad-dc /usr/local/bin/dcpromo.py
   $ DC_IPADDR=$(docker inspect dc | grep IPAddr | egrep -o --regexp='[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.[0-9]{1,3}' | head -1)
   $ sudo docker run \
       --rm \
