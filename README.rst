@@ -23,26 +23,7 @@ Repositories
   $ docker build -t xnandersson/sssd .
 
 
-Software Dependencies
----------------------
-
-.. code:: bash
-
-  $ sudo apt-get install docker.io python3-venv -yqq
-  
-
-Virtual Environment
--------------------
-
-.. code:: bash
-
-  $ python3 -m venv ~/venv3/docker-sssd
-  $ source ~/venv3/docker-sssd/bin/activate
-  (docker-sssd) $ pip install -r requirements.txt
-  (docker-sssd) $ docker-compose up -d
-  
-
-Setup
+Slapd
 -----
 
 .. code:: bash
@@ -56,7 +37,12 @@ Setup
   -e ORGANIZATION="Openforce AB" \
   -p 3389:389 \
   xnandersson/slapd
-  
+
+Active Directory
+----------------
+
+.. code:: bash
+
   $ sudo docker run \
       --privileged \
       --name dc \
@@ -75,9 +61,15 @@ Setup
   
   $ ./dc.exec # Creates example user
   
+SSSD
+----
+  
+.. code:: bash
+
   $ DC_IPADDR=$(docker inspect dc | grep IPAddr | egrep -o --regexp='[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.[0-9]{1,3}' | head -1)
   
   $ sudo docker run \
+      --name sssd \
       --rm \
       -ti \
       --dns=${DC_IPADDR} \
