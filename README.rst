@@ -39,6 +39,8 @@ Slapd
   xnandersson/slapd
   
   $ sudoers-cli add nandersson sssd ALL
+  
+  $ ldapsearch -H ldap://127.0.0.1:3389 -b dc=openforce,dc=org -x -w Secret007! -D "cn=admin,dc=openforce,dc=org"
 
 Active Directory
 ----------------
