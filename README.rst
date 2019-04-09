@@ -23,7 +23,7 @@ Start container and do the enroll procedure
 .. code:: bash
 
   $ DC_IPADDR=$(docker inspect dc | grep IPAddr | egrep -o --regexp='[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.[0-9]{1,3}' | head -1)
-  $ docker run \
+  $ sudo docker run \
       --rm \
       -ti \
       --dns=${DC_IPADDR} \
