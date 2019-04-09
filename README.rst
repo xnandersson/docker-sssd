@@ -72,8 +72,8 @@ SSSD
   
   $ sudo docker run \
       --name sssd \
+      --hostname sssd \
       --rm \
-      -ti \
       --dns=${DC_IPADDR} \
       --link dc:dc \
       --link slapd:slapd \
