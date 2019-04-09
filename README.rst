@@ -59,7 +59,7 @@ Active Directory
       -p 1024:1024 -p 3268:3268 -p 3269:3269 \
       xnandersson/samba-ad-dc /usr/local/bin/dcpromo.py
   
-  $ ./dc.exec # Creates example user
+  $ docker exec dc samba-tool user create nandersson Secret012
   
 SSSD
 ----
