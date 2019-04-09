@@ -2,12 +2,32 @@
 SSSD
 ====
 
-Build
------
+Repositories
+------------
 
 .. code:: bash
 
-  $ sudo docker build -t xnandersson/sssd .
+  $ git clone git@github.com:xnandersson/docker-dc.git
+  $ git clone git@github.com:xnandersson/docker-sssd.git
+
+
+Software Dependencies
+---------------------
+
+.. code:: bash
+
+  $ sudo apt-get install docker.io python3-venv -yqq
+  
+
+Virtual Environment
+-------------------
+
+.. code:: bash
+
+  $ python3 -m venv ~/venv3/docker-sssd
+  $ source ~/venv3/docker-sssd/bin/activate
+  (docker-sssd) $ pip install -r requirements.txt
+  (docker-sssd) $ docker-compose up -d
   
   
 Abstract
@@ -35,23 +55,3 @@ Start container and do the enroll procedure
       xnandersson/sssd /usr/local/bin/enroll.py
 
 
-Prerequisites
--------------
-
-.. code:: bash
-
-  $ sudo apt-get install docker.io python3-venv
-  $ sudo usermod -a -G docker nandersson
-  $ docker pull ubuntu:latest
-
-
-Install
--------
-
-.. code:: bash
-
-  $ python3 -m venv ~/venv3/docker-sssd
-  $ source ~/venv3/docker-sssd/bin/activate
-  $ pip install -U pip
-  $ pip install -r requirements.txt
-  $ python src/docker-sssd.py
