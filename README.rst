@@ -37,6 +37,8 @@ Slapd
   -e ORGANIZATION="Openforce AB" \
   -p 3389:389 \
   xnandersson/slapd
+  
+  $ sudoers-cli add nandersson sssd ALL
 
 Active Directory
 ----------------
