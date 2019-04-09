@@ -74,6 +74,7 @@ SSSD
       --name sssd \
       --hostname sssd \
       --rm \
+      -d \
       --dns=${DC_IPADDR} \
       --link dc:dc \
       --link slapd:slapd \
