@@ -53,7 +53,7 @@ Setup
   -d \
   -e DOMAIN=openforce.org \
   -e PASSWORD=Secret007! \
-  -e ORGANIZATION="Openforce AB"\
+  -e ORGANIZATION="Openforce AB" \
   -p 3389:389 \
   xnandersson/slapd
   
