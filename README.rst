@@ -17,6 +17,8 @@ Repositories
 
   $ git clone git@github.com:xnandersson/docker-dc.git
   $ docker build -t xnandersson/samba-ad-dc .
+  $ git clone git@github.com:xnandersson/docker-slapd.git
+  $ docker build -t xnandersson/slapd .
   $ git clone git@github.com:xnandersson/docker-sssd.git
   $ docker build -t xnandersson/sssd .
 
@@ -46,6 +48,16 @@ Setup
 .. code:: bash
 
   $ sudo docker run \
+  --name slapd \
+  --rm \
+  -d \
+  -e DOMAIN=openforce.org \
+  -e PASSWORD=Secret007! \
+  -e ORGANIZATION="Openforce AB"\
+  -p 3389:389 \
+  xnandersson/slapd
+  
+  $ sudo docker run \
       --privileged \
       --name dc \
       --rm \
@@ -60,13 +72,17 @@ Setup
       -p 445:445 -p 464:464 -p 636:636 \
       -p 1024:1024 -p 3268:3268 -p 3269:3269 \
       xnandersson/samba-ad-dc /usr/local/bin/dcpromo.py
+  
   $ ./dc.exec # Creates example user
+  
   $ DC_IPADDR=$(docker inspect dc | grep IPAddr | egrep -o --regexp='[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.[0-9]{1,3}' | head -1)
+  
   $ sudo docker run \
       --rm \
       -ti \
       --dns=${DC_IPADDR} \
       --link dc:dc \
+      --link slapd:slapd \
       -p 2223:22 \
       -e DEFAULT_REALM=OPENFORCE.ORG \
       -e ADMIN_SERVER=dc.openforce.org \
