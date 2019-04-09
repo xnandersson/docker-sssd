@@ -2,6 +2,14 @@
 SSSD
 ====
 
+Build
+-----
+
+.. code:: bash
+
+  $ sudo docker build -t xnandersson/sssd .
+  
+  
 Abstract
 --------
 
