@@ -72,6 +72,7 @@ SSSD
 .. code:: bash
 
   $ DC_IPADDR=$(docker inspect dc | grep IPAddr | egrep -o --regexp='[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}.[0-9]{1,3}' | head -1)
+  $export DC_IPADDR=$(docker inspect mongo-greenfield_mongo_1 --format='{{ range .NetworkSettings.Networks }}{{.IPAddress}}{{end}}')
   
   $ sudo docker run \
       --name sssd \
